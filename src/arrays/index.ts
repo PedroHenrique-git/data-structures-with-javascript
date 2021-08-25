@@ -110,7 +110,7 @@ for (let i = 0; i < 3; i += 1) {
   for (let j = 0; j < 3; j += 1) {
     for (let z = 0; z < 3; z += 1) {
       console.log(matriz3x3x3[i][j][z]);
-      n++;
+      n += 1;
     }
   }
 }
@@ -133,3 +133,57 @@ console.log(someResult);
 arr.forEach((num) => console.log(num % 2 === 0));
 const reducer = arr.reduce((acumulador, number) => acumulador + number, 0);
 console.log(reducer);
+
+// ordenation
+
+const order = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].reverse();
+const compareFunction = (a: number, b: number) => a - b;
+const ascOrder = order.sort(compareFunction);
+
+const friends = [
+  {
+    name: 'Pedro',
+    age: 20,
+  },
+  {
+    name: 'Luiz',
+    age: 23,
+  },
+  {
+    name: 'Evandro',
+    age: 10,
+  },
+];
+
+const orderFriends = friends.sort((friendA, friendB) => friendA.age - friendB.age);
+
+const names = ['Pedro', 'ana', 'John', 'Ramon'];
+
+const orderNames = function (nameA: string, nameB: string): number {
+  if (nameA.toLowerCase() < nameB.toLowerCase()) return -1;
+  if (nameA.toLowerCase() > nameB.toLowerCase()) return 1;
+  return 0;
+};
+
+console.log(names.sort(orderNames));
+console.log(names.sort((a, b) => a.localeCompare(b)));
+console.log(names.indexOf('Pedro'));
+
+// find and findIndex
+
+console.log(numbers.find((n1) => n1 % 13 === 0));
+console.log(numbers.findIndex((n1) => n1 % 13 === 0));
+
+// includes
+
+console.log(numbers.includes(13));
+console.log(numbers.includes(100));
+
+console.log(numbers.toString());
+console.log(numbers.join('--'));
+
+// TypedArray
+
+const int16 = new Int32Array(10);
+int16.fill(1);
+console.log(int16);
