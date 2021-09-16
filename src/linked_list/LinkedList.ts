@@ -35,20 +35,22 @@ export default class LinkedList<T> {
       if (index === 0) {
         this.head = current!.next;
       } else {
-        let previous: Node<T> | null = null;
-        for (let i = 0; i < index; i += 1) {
-          previous = current!;
-          current = current!.next;
+        const previous = this.getElementAt(index - 1);
+        if (previous) {
+          current = previous.next;
+
+          if (current) {
+            previous.next = current.next;
+          }
         }
-        previous!.next = current!.next;
-        this.count -= 1;
-        return current!.element;
       }
+      this.count -= 1;
+      return current?.element;
     }
     return undefined;
   }
 
-  getElementAt(index: number) {
+  getElementAt(index: number): Node<T> | null | undefined {
     if (index >= 0 && index <= this.count) {
       let node = this.head;
       for (let i = 0; i < index && node !== null; i += 1) {
@@ -57,5 +59,27 @@ export default class LinkedList<T> {
       return node;
     }
     return undefined;
+  }
+
+  insert(element: T, index: number) {
+    if (index >= 0 && index < this.count) {
+      const node = new Node<T>(element);
+      if (index === 0) {
+        const current = this.head;
+        node.next = current;
+        this.head = node;
+      } else {
+        let current = null;
+        const previous = this.getElementAt(index - 1);
+        node.next = current;
+        if (previous) {
+          current = previous.next;
+          previous.next = node;
+        }
+      }
+      this.count += 1;
+      return true;
+    }
+    return false;
   }
 }
