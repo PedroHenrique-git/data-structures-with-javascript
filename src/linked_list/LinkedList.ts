@@ -82,4 +82,43 @@ export default class LinkedList<T> {
     }
     return false;
   }
+
+  indexOf(element: T): number {
+    let current = this.head;
+    for (let i = 0; i < this.count && current !== null; i += 1) {
+      if (this.equalsFn(element, current.element)) {
+        return i;
+      }
+      current = current.next;
+    }
+    return -1;
+  }
+
+  remove(element: T) {
+    const index = this.indexOf(element);
+    return this.removeAt(index);
+  }
+
+  size(): number {
+    return this.count;
+  }
+
+  isEmpty(): boolean {
+    return this.count === 0;
+  }
+
+  getHead(): Node<T> | null {
+    return this.head;
+  }
+
+  toString(): string {
+    if (this.head === null) return '';
+    let objString = `${this.head.element}`;
+    let current = this.head.next;
+    for (let i = 1; i < this.size() && current !== null; i++) {
+      objString += `${objString},${current.element}`;
+      current = current.next;
+    }
+    return objString;
+  }
 }

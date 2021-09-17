@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 export default class Node<T> {
   private _element: T;
 
@@ -11,4 +12,14 @@ export default class Node<T> {
   get element(): T {
     return this._element;
   }
+}
+
+export class DoublyNode<T> extends Node<T> {
+    public prev: Node<T> | null;
+
+    constructor(element: T, next: Node<T>, prev: Node<T>) {
+      super(element);
+      this.prev = prev;
+      this.next = next;
+    }
 }
