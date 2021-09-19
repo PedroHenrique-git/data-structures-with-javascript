@@ -2,11 +2,11 @@ import Node from './models/linked-list-models';
 import defaultEquals from './utils/default-equals';
 
 export default class LinkedList<T> {
-  private count: number;
+  protected count: number;
 
-  private head: Node<T> | null;
+  protected head: Node<T> | null;
 
-  private equalsFn: (a: T, b: T) => boolean;
+  protected equalsFn: (a: T, b: T) => boolean;
 
   constructor(equalsFn = defaultEquals) {
     this.count = 0;
@@ -115,7 +115,7 @@ export default class LinkedList<T> {
     if (this.head === null) return '';
     let objString = `${this.head.element}`;
     let current = this.head.next;
-    for (let i = 1; i < this.size() && current !== null; i++) {
+    for (let i = 1; i < this.size() && current !== null; i += 1) {
       objString += `${objString},${current.element}`;
       current = current.next;
     }
