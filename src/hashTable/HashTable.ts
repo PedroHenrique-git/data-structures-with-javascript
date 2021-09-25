@@ -44,4 +44,18 @@ export default class HashTable<T> {
       }
       return false;
     }
+
+    isEmpty(): boolean {
+      return Object.keys(this.table).length === 0;
+    }
+
+    toString(): string {
+      if (this.isEmpty()) return '';
+      const keys = Object.keys(this.table);
+      let objString = `${keys[0]} => ${this.table[keys[0]].toString()}`;
+      for (let i = 0; i < keys.length; i += 1) {
+        objString = `${objString}, ${keys[i]} => ${this.table[keys[i]].toString()}`;
+      }
+      return objString;
+    }
 }
