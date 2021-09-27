@@ -68,9 +68,68 @@ export default class BinarySearchTree<T> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  minNode(node: TreeNode<T>) {
+  minNode(node: TreeNode<T>): TreeNode<T> {
     let current = node;
     while (current !== null && current.left !== null) current = current.left;
     return current;
+  }
+
+  max(): TreeNode<T> {
+    return this.maxNode(this.root);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  maxNode(node: TreeNode<T>): TreeNode<T> {
+    let current = node;
+    while (current !== null && current.right !== null) {
+      current = current.right;
+    }
+    return current;
+  }
+
+  search(key: T): boolean {
+    return this.searchNode(this.root, key);
+  }
+
+  searchNode(node: TreeNode<T>, key: T): boolean {
+    if (node === null) return false;
+    if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
+      return this.searchNode(node.left, key);
+    } if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
+      return this.searchNode(node.right, key);
+    }
+    return true;
+  }
+
+  remove(key: T) {
+    this.root = this.removeNode(this.root, key);
+  }
+
+  removeNode(node: TreeNode<T>, key: T) {
+    if (node === null) return null;
+    if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
+      node.left = this.removeNode(node.left, key);
+      return node;
+    } if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
+      node.right = this.removeNode(node.right, key);
+      return node;
+    }
+    if (node.left === null && node.right === null) {
+      node = null;
+      return node;
+    }
+    if (node.left === null) {
+      node = node.right;
+      return node;
+    }
+    if (node.right === null) {
+      node = node.left;
+      return node;
+    }
+
+    const aux = this.minNode(node.right);
+    node.key = aux.key;
+    node.right = this.removeNode(node.right, aux.key);
+    return node;
   }
 }
