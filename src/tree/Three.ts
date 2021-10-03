@@ -110,7 +110,8 @@ export default class BinarySearchTree<T> {
     if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
       node.left = this.removeNode(node.left, key);
       return node;
-    } if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
+    }
+    if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
       node.right = this.removeNode(node.right, key);
       return node;
     }
