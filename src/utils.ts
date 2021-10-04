@@ -13,6 +13,11 @@ export enum Compare {
   EQUALS = 0
 }
 
+export enum Colors {
+    RED = 'red',
+    BLACK = 'black'
+}
+
 export function lesserEquals<T>(a: T, b: T, compareFn: ICompareFunction<T>) {
   const comp = compareFn(a, b);
   return comp === Compare.LESS_THAN || comp === Compare.EQUALS;
