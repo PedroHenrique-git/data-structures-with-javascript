@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 export type ICompareFunction<T> = (a: T, b: T) => number;
 
 export type IEqualsFunction<T> = (a: T, b: T) => boolean;
@@ -37,4 +38,10 @@ export function defaultCompare<T>(a: T, b: T): number {
 
 export function defaultEquals<T>(a: T, b: T): boolean {
   return a === b;
+}
+
+export function swap<T>(array: T[], a: number, b: number): void {
+  const temp = array[a];
+  array[a] = array[b];
+  array[b] = temp;
 }
