@@ -1,4 +1,5 @@
-import Graph from './Graph';
+import Stack from '../stacks/Stack';
+import Graph, { breadthFirstSearch } from './Graph';
 
 const graph = new Graph<string>();
 const myVertices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
@@ -17,4 +18,22 @@ graph.addEdge('B', 'E');
 graph.addEdge('B', 'F');
 graph.addEdge('E', 'I');
 
-console.log(graph);
+console.log(graph.toString());
+
+const printVertex = <T>(value: T) => console.log(`Visited vertex: ${value}`);
+const r = breadthFirstSearch<string>(graph, myVertices[0], printVertex);
+
+const fromVertex = myVertices[0];
+for (let i = 0; i < myVertices.length; i += 1) {
+  const toVertex = myVertices[i];
+  const path = new Stack<string>();
+  for (let v = toVertex; v !== fromVertex; v = r.predecessors[v]!) {
+    path.push(v);
+  }
+  path.push(fromVertex);
+  let s = path.pop();
+  while (!path.isEmpty()) {
+    s += ` - ${path.pop()}`;
+  }
+  console.log(s);
+}
