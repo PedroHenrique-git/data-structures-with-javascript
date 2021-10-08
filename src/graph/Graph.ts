@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-param-reassign */
 import Dictionary from '../dictionaries/Dictionary';
 import Queue from '../queues/Queue';
 
@@ -13,6 +15,82 @@ const initializeColor = <T>(vertices: T[]) => {
     color[String(vertices[i])] = colors.WHITE;
   }
   return color;
+};
+
+export const depthFirstSearch = <T>(graph: Graph<T>, callback: CallableFunction) => {
+  const vertices = graph.getVertices();
+  const adjList = graph.getAdjList();
+  const color = initializeColor(vertices);
+  for (let i = 0; i < vertices.length; i += 1) {
+    if (color[String(vertices[i])] === colors.WHITE) {
+      depthFirstSearchVisit(vertices[i], color, adjList, callback);
+    }
+  }
+};
+
+export const DFS = <T>(graph: Graph<T>) => {
+  const vertices = graph.getVertices();
+  const adjList = graph.getAdjList();
+  const color = initializeColor(vertices);
+  const d: { [key: string]: number } = {};
+  const f: { [key: string]: number } = {};
+  const p: { [key: string]: T | undefined } = {};
+  const time = { count: 0 };
+  for (let i = 0; i < vertices.length; i += 1) {
+    f[String(vertices[i])] = 0;
+    d[String(vertices[i])] = 0;
+    p[String(vertices[i])] = undefined;
+  }
+  for (let i = 0; i < vertices.length; i += 1) {
+    if (color[String(vertices[i])] === colors.WHITE) {
+      DFSVisit(vertices[i], color, d, f, p, time, adjList);
+    }
+  }
+  return {
+    discovery: d,
+    finished: f,
+    predecessors: p,
+  };
+};
+
+const DFSVisit = <T>(
+  u: T, color: { [key: string]: number },
+  d: { [key: string]: number },
+  f: { [key: string]: number },
+  p: { [key: string]: T | undefined },
+  time: { count: number },
+  adjList: Dictionary<T[]>,
+) => {
+  color[String(u)] = colors.GREY;
+  // eslint-disable-next-line no-plusplus
+  d[String(u)] = ++time.count;
+  const neighbors = adjList.get(String(u));
+  for (let i = 0; i < neighbors!.length; i += 1) {
+    const w = neighbors![i];
+    if (color[String(w)] === colors.WHITE) {
+      p[String(w)] = u;
+      DFSVisit(w, color, d, f, p, time, adjList);
+    }
+  }
+  color[String(u)] = colors.BLACK;
+  // eslint-disable-next-line no-plusplus
+  f[String(u)] = ++time.count;
+};
+
+// eslint-disable-next-line max-len
+const depthFirstSearchVisit = <T>(u: T, color: { [key: string]: number }, adjList: Dictionary<T[]>, callback: CallableFunction) => {
+  color[String(u)] = colors.GREY;
+  if (callback) {
+    callback(u);
+  }
+  const neighbors = adjList.get(String(u));
+  for (let i = 0; i < neighbors!.length; i += 1) {
+    const w = neighbors![i];
+    if (color[String(w)] === colors.WHITE) {
+      depthFirstSearchVisit(w, color, adjList, callback);
+    }
+  }
+  color[String(u)] = colors.BLACK;
 };
 
 export const breadthFirstSearch = <T>(graph: Graph<T>, startVertex: T, callback: CallableFunction) => {
@@ -60,8 +138,8 @@ export default class Graph<T> {
 
     protected adjList: Dictionary<T[]>;
 
-    constructor() {
-      this.isDirected = false;
+    constructor(isDirected: boolean = false) {
+      this.isDirected = isDirected;
       this.vertices = [];
       this.adjList = new Dictionary<T[]>();
     }
