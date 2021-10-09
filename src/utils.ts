@@ -45,3 +45,11 @@ export function swap<T>(array: T[], a: number, b: number): void {
   array[a] = array[b];
   array[b] = temp;
 }
+
+export function createNonSortedArray(size: number): number[] {
+  const array = [];
+  for (let i = size; i > 0; i -= 1) {
+    array.push(i);
+  }
+  return array;
+}
