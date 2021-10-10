@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { Compare, createNonSortedArray, defaultCompare } from '../utils';
 
-function insertionSort(array: number[], compareFn = defaultCompare) {
+export default function insertionSort(array: number[], compareFn = defaultCompare) {
   const { length } = array;
   let temp;
 
