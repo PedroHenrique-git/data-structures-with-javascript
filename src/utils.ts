@@ -53,3 +53,8 @@ export function createNonSortedArray(size: number): number[] {
   }
   return array;
 }
+
+export function lesserOrEquals(a: number, b: number, compareFn = defaultCompare) {
+  const comp = compareFn(a, b);
+  return comp === Compare.LESS_THAN || comp === Compare.EQUALS;
+}

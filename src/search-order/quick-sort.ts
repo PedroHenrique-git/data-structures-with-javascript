@@ -1,5 +1,5 @@
 import {
-  Compare, createNonSortedArray, defaultCompare, swap
+    Compare, createNonSortedArray, defaultCompare, swap
 } from '../utils';
 
 function partition(array: number[], left: number, right: number, compareFn = defaultCompare) {
@@ -36,7 +36,7 @@ function quick(array: number[], left: number, right: number, compareFn = default
   return array;
 }
 
-function quickSort(array: number[], compareFn = defaultCompare) {
+export default function quickSort(array: number[], compareFn = defaultCompare) {
   return quick(array, 0, array.length - 1, compareFn);
 }
 
