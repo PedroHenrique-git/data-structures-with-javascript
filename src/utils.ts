@@ -58,3 +58,12 @@ export function lesserOrEquals(a: number, b: number, compareFn = defaultCompare)
   const comp = compareFn(a, b);
   return comp === Compare.LESS_THAN || comp === Compare.EQUALS;
 }
+
+export function defaultDiff(a: number, b: number): number {
+  return a - b;
+}
+
+export function biggerOrEquals(a: number, b: number, comapareFn = defaultCompare): boolean {
+  const comp = comapareFn(a, b);
+  return comp === Compare.BIGGER_THAN || comp === Compare.EQUALS;
+}
