@@ -7,7 +7,7 @@ export default function minCoinChange(coins: number[], amount: number) {
 
     let min: number[] = [];
     let newMin: number[] = [];
-    let newAmount;
+    let newAmount: number;
 
     for (let i = 0; i < coins.length; i += 1) {
       const coin = coins[i];
